@@ -1,6 +1,5 @@
 package mainpackage;
 import java.util.Scanner;
-
 public class Patient extends Users{
     void Users(){
         username="";

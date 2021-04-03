@@ -1,7 +1,5 @@
 package mainpackage;
-
 import java.util.Scanner;
-
 public class Users {
     public String username;
     public String password;

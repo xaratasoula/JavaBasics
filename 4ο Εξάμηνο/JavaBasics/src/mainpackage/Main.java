@@ -7,6 +7,5 @@ public class Main{
         Patient.get_set();
         Patient.Registration();
 
-
     }
 }

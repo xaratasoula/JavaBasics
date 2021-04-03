@@ -6,6 +6,9 @@ public class Main{
         Patient Patient = new Patient();
         Patient.get_set();
         Patient.Registration();
+        Patient.ArrangeMeeting();
+        Patient.SearchMeeting();
+        Patient.PatientHistory();
 
     }
 }

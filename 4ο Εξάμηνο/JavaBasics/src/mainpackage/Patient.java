@@ -1,4 +1,8 @@
 package mainpackage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 public class Patient extends Users{
     public String meetDate;
@@ -6,6 +10,14 @@ public class Patient extends Users{
     public String time;
     public int MeetingId;
     public static String amka;
+    Scanner obj4 = new Scanner(System.in);
+
+
+    public Patient(String username, String password, String name, String surname, String amka) throws IllegalArgumentException  {
+        super(username,password,name,surname);
+        this.amka=amka;
+    }
+
     public String getMeetDate() {
         return meetDate;
     }
@@ -31,51 +43,59 @@ public class Patient extends Users{
         this.MeetingId=newMeetingId;
     }
 
-    void Users(){
-        username="";
-        name="name1";
-        surname="surname";
-        password="pass1";
-        amka="2345";
-    };
 
-    public void get_set() {
+    public void get_set() throws IllegalArgumentException {
         Scanner obj3 = new Scanner(System.in);  // Create a Scanner object
         System.out.println("Enter your AMKA");
 
         String amka = obj3.nextLine();  // Read user input
         System.out.println("Your AMKA is: " + amka);  // Output user input
         this.amka = amka;
+        System.out.println("Your data are: Username:" +username +", Password: "+ password+", Name: "+ name+ ", Surname "+ surname+ ", AMKA: " +amka);
+
     }
 
-    public void Registration(){
-        if ((username=="")||(password=="")){
-            Scanner obj4 = new Scanner(System.in);
-            System.out.println("Register, name:");
-
+    public void Registration() throws IllegalArgumentException {
+        if (((username)=="")||(password=="")){
+            System.out.println("Registration Time! Enter the username you want:");
             String username = obj4.nextLine(); // Read user input
             System.out.println("Your name is: " + username);  // Output user input
 
-            Scanner obj5 = new Scanner(System.in);
-            System.out.println("Register, pass:");
-
+            System.out.println("Enter the password you want:");
             String password = obj4.nextLine(); // Read user input
             System.out.println("Your pass is: " + password);  // Output user input
+            this.username=username;
+            this.password=password;
+            System.out.println("Your data are: Username:" +name +", Password: "+ password);
+
         }
 
     }
-    public void ArrangeMeeting(){
+    public void AvailableMeetings() {
         meetDate = "12/02/2021";
         Day = "Thursday";
         time = "13:30";
         MeetingId = 0;
+        System.out.println("Enter the Id of the Doctor you search for:");
+        String for_id = obj4.nextLine(); // Read user input
+        System.out.println("Mr/Mrs "+username+" Available Meetings with the Doctor with Id: "+for_id+ " is " +meetDate+" "+Day+" "+time);
     }
+    public void ArrangeMeetingSpec(){
+        meetDate = "12/02/2021";
+        Day = "Thursday";
+        time = "13:30";
+        MeetingId = 0;
+        System.out.println("Enter the speciality of the Doctor you search for:");
+        String for_spec = obj4.nextLine(); // Read user input
+        System.out.println("Available Meetings with "+for_spec+ " Doctors are: " +meetDate+" "+Day+" "+time);
+    }
+
     public void SearchMeeting(){
         Scanner objmeet = new Scanner(System.in);  // Create a Scanner object
-        System.out.println("Enter your MeetingId");
+        System.out.println("Enter your AMKA to see your scheduled meetings");
 
         String amka = objmeet.nextLine();  // Read user input
-        System.out.println("Your AMKA is: " + MeetingId);  // Output user input
+        System.out.println("Your Scheduled Meetings are: bla bla bla");  // Output user input
         this.MeetingId = MeetingId;
 
     }
@@ -84,8 +104,25 @@ public class Patient extends Users{
         System.out.println("Enter your AMKA to find your patient history:");
 
         String amka = objamka.nextLine();  // Read user input
-        System.out.println("Your AMKA is: " + amka);  // Output user input
+        System.out.println("Your previous appointments are: bla bla bla");  // Output user input
         this.amka = amka;
 
+    }
+    public void Infos_From_Txt()  {
+        try {
+            File file = new File("C:\\Users\\xarat\\Documents\\Σχολή\\4ο Εξάμηνο\\Προγραμματισμός στο Διαδίκτυο και τον Παγκόσμιο Ιστό\\patienttext.txt");
+            Scanner scan = new Scanner(file);
+            String fileContent = scan.nextLine();
+            String[] arguments = fileContent.split(" ");
+            this.username = arguments[0];
+            this.password = arguments[1];
+            this.name = arguments[2];
+            this.surname = arguments[3];
+            this.amka = arguments[4];
+            System.out.println("Data of Patient in the Text File Are: Username:" + username + ", Password:" + password + ", Name:" + name + ", Surname:" + surname);
+        }
+        catch (IOException e) {
+            System.out.println("File does not exist");
+        }
     }
 }
